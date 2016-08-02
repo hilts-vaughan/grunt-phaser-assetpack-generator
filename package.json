@@ -1,7 +1,7 @@
 {
   "name": "grunt-phaser-assetpack-generator",
   "description": "This tool helps you generate an asset pack from your filesystem directory, so that you can easily preload all your assets required for your Phaser game.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "https://github.com/hilts-vaughan/grunt-phaser-assetpack-generator",
   "author": {
     "name": "Vaughan Hilts",

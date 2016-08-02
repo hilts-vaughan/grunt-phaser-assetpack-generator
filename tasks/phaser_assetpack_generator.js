@@ -61,7 +61,7 @@ module.exports = function(grunt) {
         var assetJson = processFiles(filesGood, file.dest, processor)
 
         // Write out the asset json
-        grunt.file.write(file.dest[0], JSON.stringify(assetJson));
+        grunt.file.write(file.dest, JSON.stringify(assetJson));
     }); // end files
 
   }); // end multi-task

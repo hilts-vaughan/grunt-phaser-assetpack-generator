@@ -164,7 +164,7 @@ var levelFormatter = function(file, grunt) {
 ```
 
 In this way, you could load the common assets and the level assets seperately
-without needing to worry about bootstrapping the entire game at once in one pack load. And of course, you are able to provide a custom function as shown above so that you are able to do something unique with the level path. 
+without needing to worry about bootstrapping the entire game at once in one pack load. And of course, you are able to provide a custom function as shown above so that you are able to do something unique with the level path.
 
 ## Contributing
 

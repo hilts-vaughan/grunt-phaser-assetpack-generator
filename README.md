@@ -113,7 +113,10 @@ custom files and create the definitions based on those contents.
 * `json`, `text`, `xml`
 * `spritesheet`. Spritesheet support is something I want to include but I need more details on the implementation first. Submit an issue if you have an idea on how to do this.
 
-* `tilemap`. Not implemented; submit issue or PR with a sample implementation! :)
+* `tilemap`. This type is special in that it does not just GENERATE an asset pack but a file as well. It will create a JSON file with the same name as your TMX
+file in your directory that can be loaded and uses this in the asset pack. This allows you to generate the JSON files alongside. In the future, it would probably
+be a good idea to split out this functionality to make things a bit easier to identify. However, different extensions would be needed to identify different
+file types and the like.
 
 ### Usage Examples
 

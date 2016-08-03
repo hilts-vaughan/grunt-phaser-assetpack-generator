@@ -7,6 +7,7 @@
  */
 
 'use strict';
+var tilemapModule = require('./modules/tiled_map_handler')
 
 module.exports = function(grunt) {
   grunt.registerMultiTask('phaser_assetpack_generator', 'This tool helps you generate an asset pack from your filesystem directory, so that you can easily preload all your assets required for your Phaser game.', function() {
@@ -28,7 +29,9 @@ module.exports = function(grunt) {
         // Skip directories
         if(!grunt.file.isDir(file)) {
           var asset = processor(file, grunt)
-          assetJson.assets.push(asset)
+          if(asset) {
+            assetJson.assets.push(asset)            
+          }
         }
       });
       return assetJson
@@ -50,7 +53,6 @@ module.exports = function(grunt) {
         var processor = file.processor
         // If not a function, then try to load the built-in map
         if(processor != 'function') {
-          console.log(file.processor)
           processor = assetHandlerMap[file.processor]
           if(!processor) {
             grunt.fail.warn('A processor must be specified. Use "default" if you want things to be handled without much friction.');
@@ -61,7 +63,7 @@ module.exports = function(grunt) {
         var assetJson = processFiles(filesGood, file.dest, processor)
 
         // Write out the asset json
-        grunt.file.write(file.dest, JSON.stringify(assetJson));
+        grunt.file.write(file.dest, JSON.stringify(assetJson, null, 2));
     }); // end files
 
   }); // end multi-task
@@ -94,8 +96,10 @@ var assetHandlerDefault = function(file, grunt) {
         return jsonHandler(file)
       case 'xml':
         return xmlHandler(file)
+      case 'tmx':
+        return tilemapModule.tileMapHandler(file, grunt)
       default:
-        throw new Error('Could not figure out how to handle file: ' + file)
+        grunt.log.warn('Could not figure out how to handle file: ' + file + ' so decided to skip it.')
     }
 }
 
@@ -150,6 +154,10 @@ var xmlHandler = function(file) {
   }
 }
 
+var tmxTilesetHandler = function(file)  {
+
+}
+
 // The below is a map of built-in handlers and how they can be used
 var assetHandlerMap = {
   default: assetHandlerDefault,
@@ -157,7 +165,8 @@ var assetHandlerMap = {
   image: imageHandler,
   text: textHandler,
   json: jsonHandler,
-  xml: xmlHandler
+  xml: xmlHandler,
+  tilemap: tilemapModule.tileMapHandler
 }
 
 // TODO: How to handle spritesheets? There's a lot of different spritesheet formats

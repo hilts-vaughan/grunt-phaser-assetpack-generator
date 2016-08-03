@@ -22,8 +22,8 @@ module.exports = function(grunt) {
       default: {
         files: [
           {
-            src: ['assets/**'],
-            dest: ['tmp/assets.json'],
+            src: ['assets/**', '!**/*.json'],
+            dest: 'tmp/assets.json',
             processor: 'default'
           }
         ]
